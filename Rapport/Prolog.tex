@@ -23,7 +23,7 @@ Ici le problème est le suivant : "Lulu doit faire passer le chou, la chèvre et
 
 On cherche à modéliser le problème en Prolog. La solution est donnée dans le fichier "rivière.pl"
 
-La modélisation est la suivante : on utilise un quadruplet $(Lulu, Chou, Chevre, Loup)$ de booléens tel que chaque variable vaut $0$ si le personnage est du premier côté de la rivière et $1$ s'il est du second. On cherche donc à transformer le tuple $(0,0,0,0,)$ en $(1,1,1,1)$. Pour cela on commence par définir les états interdits (le loup et la chèvre d'un même côté ou encore la chèvre et le chou du même côté). Ensuite on modélise les déplacements possibles : déplacement du chou, de la chèvre, du loup ou de Lulu en interdisant les déplacements qui conduisent à un état interdit.
+La modélisation est la suivante : on utilise un tuple $(Lulu, Chou, Chevre, Loup)$ de booléens tel que chaque variable vaut $0$ si le personnage est du premier côté de la rivière et $1$ s'il est du second. On cherche donc à transformer le tuple $(0,0,0,0,)$ en $(1,1,1,1)$. Pour cela on commence par définir les états interdits (le loup et la chèvre d'un même côté ou encore la chèvre et le chou du même côté). Ensuite on modélise les déplacements possibles : déplacement du chou, de la chèvre, du loup ou de Lulu en interdisant les déplacements qui conduisent à un état interdit.
 
 On cherche ensuite la solution à l'aide d'un parcours en largeur implémenté par des listes.
 
@@ -32,7 +32,7 @@ Le problème est finalement résolu par analogie avec une réflexion sur les gra
 Pour exécuter le code, il suffit d'utiliser la commande \texttt{solution} ou la commande \texttt{solution\_ecrite} dans Prolog après avoir chargé le fichier "rivière.pl". Dans le premier cas, on obtient la liste des situations depuis celle ou tout le monde est sur la première berge jusqu'à celle ou tout le monde est sur la seconde berge. Avec la deuxième commande, on obtient la liste écrite des déplacements de Lulu, comme le montre la sortie ci-dessous :
 
 \begin{center}
-\includegraphics[width = 425pt]{SolutionRiviere.png}
+\includegraphics[width = 400pt]{SolutionRiviere.png}
 \end{center}
 
 
