@@ -1,4 +1,4 @@
-/* Autheur : Romain Pascual
+/* Autheurs : Valentin Noel et Romain Pascual
 
 On cherche à modéliser le problème de la traversée de rivière.
 
@@ -51,7 +51,63 @@ parcours(Arrivee,[[Situation_actuelle|Chemins]|Autres_chemins],Solution) :-
 	append(Autres_chemins,Nouveau_chemins,Chemins_rallonges),
 	parcours(Arrivee,Chemins_rallonges,Solution).
 
+tete([A|_],A).
+
+
+/* Fonction d'affichage */
+ecriture_solution([_]) :- write('Tout le monde a traversé'),!.
+
+% Deplacement du Chou
+ecriture_solution([situation(_, Chou, _, _)|L]) :-
+	tete(L,situation(_, Chou2, _, _)),
+	Chou \= Chou2,
+	Debut is Chou + 1,
+	Fin is Chou2 + 1,
+	write('Lulu se déplace avec le chou de la berge '),
+	write(Debut), write(' à la berge '),
+	write(Fin), write('.'), nl,
+	ecriture_solution(L).
+
+% Deplacement de la Chevre
+ecriture_solution([situation(_, _, Chevre, _)|L]) :-
+	tete(L,situation(_, _, Chevre2, _)),
+	Chevre \= Chevre2,
+	Debut is Chevre + 1,
+	Fin is Chevre2 + 1,
+	write('Lulu se déplace avec la chevre de la berge '),
+	write(Debut), write(' à la berge '),
+	write(Fin), write('.'), nl,
+	ecriture_solution(L).
+	
+% Deplacement du Loup
+ecriture_solution([situation(_, _, _, Loup)|L]) :-
+	tete(L,situation(_, _, _, Loup2)),
+	Loup \= Loup2,
+	Debut is Loup + 1,
+	Fin is Loup2 + 1,
+	write('Lulu se déplace avec le loup de la berge '),
+	write(Debut), write(' à la berge '),
+	write(Fin), write('.'), nl,
+	ecriture_solution(L).
+	
+%Deplacement de Lulu
+ecriture_solution([situation(Lulu, Chou, Chevre, Loup)|L]) :-
+	tete(L,situation(Lulu2, Chou2, Chevre2, Loup2)),
+	Chou == Chou2,
+	Chevre == Chevre2,
+	Loup == Loup2,
+	Lulu \= Lulu2,
+	Debut is Lulu + 1,
+	Fin is Lulu2 + 1,
+	write('Lulu se déplace seul de la berge '),
+	write(Debut), write(' à la berge '),
+	write(Fin), write('.'), nl,
+	ecriture_solution(L).
 
 solution :- bfs(situation(0,0,0,0),situation(1,1,1,1), Lrev),
 	reverse(Lrev,Liste),
 	write(Liste).
+
+solution_ecrite :- bfs(situation(0,0,0,0),situation(1,1,1,1), Lrev),
+	reverse(Lrev,Liste),
+	ecriture_solution(Liste).
