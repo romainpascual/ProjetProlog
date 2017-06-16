@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.6.20)  14 JUN 2017 16:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.6.20)  15 JUN 2017 23:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -632,30 +632,61 @@ File: SolutionRiviere.png Graphic file (type png)
 
 <use SolutionRiviere.png>
 Package pdftex.def Info: SolutionRiviere.png used on input line 35.
-(pdftex.def)             Requested size: 400.0pt x 276.31413pt.
+(pdftex.def)             Requested size: 350.0pt x 241.77206pt.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2 <./SolutionRiviere.png>
-] (./Prolog.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (20.20786pt too wide) in paragraph at lines 53--54
+[]\T1/cmr/m/n/12 Pour exé-cu-ter le code, il suf-fit d'ap-pe-ler la com-mande \
+T1/cmtt/m/n/12 solution($\OT1/cmr/m/n/12 +$\T1/cmtt/m/n/12 Liste, $\OT1/cmr/m/n
+/12 +$\T1/cmtt/m/n/12 Nombre)
+ []
+
+
+Overfull \hbox (79.8392pt too wide) in paragraph at lines 53--54
+\T1/cmr/m/n/12 ob-te-nir l'en-semble des so-lu-tions pos-sibles. On uti-li-sera
+ la com-mande \T1/cmtt/m/n/12 meilleure_solution($\OT1/cmr/m/n/12 +$\T1/cmtt/m/
+n/12 Liste,
+ []
+
+
+Overfull \hbox (16.11803pt too wide) in paragraph at lines 53--54
+\T1/cmr/m/n/12 com-mande \T1/cmtt/m/n/12 meilleure_solution_approchee($\OT1/cmr
+/m/n/12 +$\T1/cmtt/m/n/12 Nombres, $\OT1/cmr/m/n/12 +$\T1/cmtt/m/n/12 But, $\OT
+1/cmr/m/n/12 +$\T1/cmtt/m/n/12 Erreur_toleree)
+ []
+
+[2 <./SolutionRiviere.png>]
+<SolutionCompteEstBon.png, id=21, 841.1425pt x 842.14626pt>
+File: SolutionCompteEstBon.png Graphic file (type png)
+
+<use SolutionCompteEstBon.png>
+Package pdftex.def Info: SolutionCompteEstBon.png used on input line 58.
+(pdftex.def)             Requested size: 400.0pt x 400.47339pt.
+ [3 <./SolutionCompteEstBon.png>] (./Prolog.aux) ) 
 Here is how much of TeX's memory you used:
- 4486 strings out of 493029
- 58711 string characters out of 6136234
+ 4491 strings out of 493029
+ 58850 string characters out of 6136234
  132818 words of memory out of 5000000
- 7940 multiletter control sequences out of 15000+600000
+ 7944 multiletter control sequences out of 15000+600000
  15046 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,6n,30p,633b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/tex
-mf/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/publi
-c/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.
-pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm2074.pfb></usr/share/texm
-f/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Prolog.pdf (2 pages, 151709 bytes).
+ 38i,6n,30p,1045b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/d
+vips/cm-super/cm-super-t1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr
+/share/texmf/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/t
+ype1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super
+/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm2074.pfb></usr/
+share/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on Prolog.pdf (3 pages, 266796 bytes).
 PDF statistics:
- 41 PDF objects out of 1000 (max. 8388607)
- 28 compressed objects within 1 object stream
+ 61 PDF objects out of 1000 (max. 8388607)
+ 42 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

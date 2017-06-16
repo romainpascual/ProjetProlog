@@ -32,12 +32,30 @@ Le problème est finalement résolu par analogie avec une réflexion sur les gra
 Pour exécuter le code, il suffit d'utiliser la commande \texttt{solution} ou la commande \texttt{solution\_ecrite} dans Prolog après avoir chargé le fichier "rivière.pl". Dans le premier cas, on obtient la liste des situations depuis celle ou tout le monde est sur la première berge jusqu'à celle ou tout le monde est sur la seconde berge. Avec la deuxième commande, on obtient la liste écrite des déplacements de Lulu, comme le montre la sortie ci-dessous :
 
 \begin{center}
-\includegraphics[width = 400pt]{SolutionRiviere.png}
+\includegraphics[width = 350pt]{SolutionRiviere.png}
 \end{center}
-
 
 
 \section{Problème 2 : Le compte est bon}
 "Le compte est bon est un jeu (télévisé) qui consiste à trouver une combinaison arithmétique de nombres afin d'obtenir un certain total."
+
+Ici on suppose une entrée avec six nombres $(n_i)_{1 \leqslant i \leqslant 6}$ et un objectif $N$ compris strictement entre $100$ et $1000$. Par ailleurs les nombres $n_i$ sont à choisir parmi $1,2,3,4,5,6,7,8,9,10,25,50,75,100$.
+
+Par exemple, avec le tirage $1,2,3,4,5,6$ et l'objectif $N = 150$, une combinaison gagnante est 
+
+\[ (3*(1 + 2))- 4)*5*6 = 150 \]
+
+Entre deux combinaisons gagnantes, celle qui utilise le moins de nombres sera préférée.
+
+L'implémentation nécessite en premier lieu un certain nombre de prédicats pour pouvoir manipuler les listes (sélection d'un élément, calcul de la longueur, etc.). Le compte est bon est modélisé comme une liste d'opération arithmétiques, on extrait deux nombres, sur lesquels on applique une opération arithmétique ($+$, $-$, $*$ ou *$/$). Le résultat est alors rajouté à la liste des nombres. On obtient ainsi tous les résultats possibles à partir de l'ensemble de départ. Il suffit alors de s'arrêter lorsque l'on a construit l'objectif recherché. Pour obtenir la "meilleure" solution, c'est-à-dire celle utilisant le moins d'opération possibles, on se contente d'énumérer toutes les solutions et d'en choisir une parmi celles ayant le moins d'opérations. Par ailleurs, un certains nombres de prédicats sont utilisés pour vérifier que les contraintes sur les nombres utilisés et sur l'objectif sont remplis. Enfin, on trouvera des prédicats permettant une mise en forme minimale des solutions.
+Dans le cas d'une solution approchée, celle si est construite en testant tous les objectifs, en s'éloignant progressivement dans les deux directions.
+
+Pour exécuter le code, il suffit d'appeler la commande \texttt{solution($+$Liste, $+$Nombre)} avec pour paramètres les nombres que l'on peut utiliser et l'objectif à atteindre pour obtenir l'ensemble des solutions possibles. On utilisera la commande \texttt{meilleure\_solution($+$Liste, $+$Nombre)} pour afficher une meilleure solution (en nombre d'opérations). Enfin la commande \texttt{meilleure\_solution\_approchee($+$Nombres, $+$But, $+$Erreur\_toleree)} permet de chercher la meilleure solution approchée restant entre $100$ et $1000$ (exclus) avec pour borne supérieure de l'erreur la valeur de \texttt{Erreur\_toleree}.
+
+Notons que le grand nombre de cas à tester peut causer un certain délais avant d'obtenir le résultat. Comme on peut le voir sur la capture d'écran ci-dessous ou la valeur $C$ représente le temps d'exécution du code en secondes. 
+
+\begin{center}
+\includegraphics[width = 400pt]{SolutionCompteEstBon.png}
+\end{center}
 
 \end{document}
