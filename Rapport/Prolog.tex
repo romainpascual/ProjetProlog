@@ -29,7 +29,7 @@ On cherche ensuite la solution à l'aide d'un parcours en largeur implémenté p
 
 Le problème est finalement résolu par analogie avec une réflexion sur les graphes où les nœuds représentent les différents états licites et les arcs les déplacements du bateau. La "meilleure" solution est alors obtenue à l'aide d'un parcours en largeur du graphe. Le code du parcours en largeur à été trouvé sur internet et adapté à la situation.
 
-Pour exécuter le code, il suffit d'utiliser la commande \texttt{solution} ou la commande \texttt{solution\_ecrite} dans Prolog après avoir chargé le fichier "rivière.pl". Dans le premier cas, on obtient la liste des situations depuis celle ou tout le monde est sur la première berge jusqu'à celle ou tout le monde est sur la seconde berge. Avec la deuxième commande, on obtient la liste écrite des déplacements de Lulu, comme le montre la sortie ci-dessous :
+Pour exécuter le code, il suffit d'utiliser la commande \texttt{solution} ou la commande \texttt{solution\_ecrite} dans Prolog après avoir chargé le fichier "rivière.pl". Dans le premier cas, on obtient la liste des situations depuis celle ou tout le monde est sur la première berge jusqu'à celle où tout le monde est sur la seconde berge. Avec la deuxième commande, on obtient la liste écrite des déplacements de Lulu, comme le montre la sortie ci-dessous :
 
 \begin{center}
 \includegraphics[width = 350pt]{SolutionRiviere.png}
@@ -50,12 +50,53 @@ Entre deux combinaisons gagnantes, celle qui utilise le moins de nombres sera pr
 L'implémentation nécessite en premier lieu un certain nombre de prédicats pour pouvoir manipuler les listes (sélection d'un élément, calcul de la longueur, etc.). Le compte est bon est modélisé comme une liste d'opération arithmétiques, on extrait deux nombres, sur lesquels on applique une opération arithmétique ($+$, $-$, $*$ ou *$/$). Le résultat est alors rajouté à la liste des nombres. On obtient ainsi tous les résultats possibles à partir de l'ensemble de départ. Il suffit alors de s'arrêter lorsque l'on a construit l'objectif recherché. Pour obtenir la "meilleure" solution, c'est-à-dire celle utilisant le moins d'opération possibles, on se contente d'énumérer toutes les solutions et d'en choisir une parmi celles ayant le moins d'opérations. Par ailleurs, un certains nombres de prédicats sont utilisés pour vérifier que les contraintes sur les nombres utilisés et sur l'objectif sont remplis. Enfin, on trouvera des prédicats permettant une mise en forme minimale des solutions.
 Dans le cas d'une solution approchée, celle si est construite en testant tous les objectifs, en s'éloignant progressivement dans les deux directions.
 
-Pour exécuter le code, il suffit d'appeler la commande \texttt{solution($+$Liste, $+$Nombre)} avec pour paramètres les nombres que l'on peut utiliser et l'objectif à atteindre pour obtenir l'ensemble des solutions possibles. On utilisera la commande \texttt{meilleure\_solution($+$Liste, $+$Nombre)} pour afficher une meilleure solution (en nombre d'opérations). Enfin la commande \texttt{meilleure\_solution\_approchee($+$Nombres, $+$But, $+$Erreur\_toleree)} permet de chercher la meilleure solution approchée restant entre $100$ et $1000$ (exclus) avec pour borne supérieure de l'erreur la valeur de \texttt{Erreur\_toleree}.
+Le code se trouve dans le fichier "compteEstBon.pl". Pour l'exécuter, il suffit d'appeler la commande \texttt{solution($+$Liste, $+$Nombre)} avec pour paramètres les nombres que l'on peut utiliser et l'objectif à atteindre pour obtenir l'ensemble des solutions possibles. On utilisera la commande \texttt{meilleure\_solution($+$Liste, $+$Nombre)} pour afficher une meilleure solution (en nombre d'opérations). Enfin la commande \texttt{meilleure\_solution\_approchee($+$Nombres, $+$But, $+$Erreur\_toleree)} permet de chercher la meilleure solution approchée restant entre $100$ et $1000$ (exclus) avec pour borne supérieure de l'erreur la valeur de \texttt{Erreur\_toleree}.
 
-Notons que le grand nombre de cas à tester peut causer un certain délais avant d'obtenir le résultat. Comme on peut le voir sur la capture d'écran ci-dessous ou la valeur $C$ représente le temps d'exécution du code en secondes. 
+Notons que le grand nombre de cas à tester peut causer un certain délais avant d'obtenir le résultat, comme on peut le voir sur les captures d'écran ci-dessous où la valeur $C$ représente le temps d'exécution du code en secondes. 
 
 \begin{center}
-\includegraphics[width = 400pt]{SolutionCompteEstBon.png}
+\includegraphics[width = 400pt]{SolutionCompteEstBon1.png}
+\includegraphics[width = 400pt]{SolutionCompteEstBon2.png}
 \end{center}
 
+
+\section{Problème 3 : Logique propositionnelle}
+\subsection{Algorithme DPLL}
+Il s'agit d'implémenter un prédicat qui teste la satisfiabilité d'une formule booléenne $\phi$ en appliquant l'algorithme DPLL. On suppose ici que la formule est déjà mise sous forme normale conjonctive. La formule est alors un ensemble de clause et chaque clause est une disjonction de littéraux.  Une clause est alors implémentée sous la forme d'une liste de littéraux et une formule sous la forme d'une liste de liste. Ici on oblige les variables à être représentées avec des entiers naturels. Les littéraux sont alors simplement représentés avec les entiers relatifs : un entier positif représente un variable et un entier négatif la négation de cette variable.
+
+Après avoir défini un certain nombres de prédicats pour manipuler les listes, on implémente des prédicats pour manipuler les littéraux, les clauses et les formules (trouver les littéraux dans une formule, supprimer des littéraux dans une clause ou dans une formule, obtenir la liste des variables d'une formule, etc).
+
+Il s'agit alors de définir les prédicats propres à la résolution avec l'algorithme DPLL :
+\begin{itemize}
+\item le prédicat \texttt{get\_unitaire} permet de trouver dans une formule sous forme normale conjonctive la liste des littéraux présents dans des clauses unitaires.
+\item le prédicat \texttt{get\_polarisation\_positive} permet de trouver dans une formule sous forme normale conjonctive la liste des littéraux possédant uniquement une polarisation positive.
+\item le prédicat \texttt{get\_polarisation\_negative} permet de trouver dans une formule sous forme normale conjonctive la liste des littéraux possédant uniquement une polarisation négative.
+\end{itemize}
+
+\paragraph{Algorithme} L'algorithme est implémenté de la manière suivante :
+\begin{itemize}
+\item on cherche les littéraux dans des clauses unitaires, on les modifie les différentes clauses de la formule en fonction de si la valuation des littéraux mis en évidence les valide ou non, puis on résout par DPLL la nouvelle formule ;
+\item on cherche les littéraux de valuation uniquement positive, on les modifie les différentes clauses de la formule en fonction de si la valuation des littéraux mis en évidence les valide ou non, puis on résout par DPLL la nouvelle formule ;
+\item on cherche les littéraux de valuation uniquement négative, on les modifie les différentes clauses de la formule en fonction de si la valuation des littéraux mis en évidence les valide ou non, puis on résout par DPLL la nouvelle formule ;
+\item sinon on prend la variable en tête de liste et on essaie de lui affecter la valeur $true$, on les modifie les différentes clauses de la formule en fonction de si cette valuation les valide ou non, puis on résout par DPLL la nouvelle formule ;
+\item lors du backtracking, on prend la variable en tête de liste et on essaie de lui affecter la valeur $false$, on les modifie les différentes clauses de la formule en fonction de si cette valuation les valide ou non, puis on résout par DPLL la nouvelle formule ;
+\end{itemize}
+
+Dans un soucis de simplification, on évalue toutes les variables non significatives (c'est-à-dire les variables auxquelles on peut associer $true$ ou $false$ dans modifier la satisfiabilité de la formule) à $true$.
+
+
+Le code se trouve dans le fichier "dpll.pl", la commande \texttt{solution(+Fnc)} permet d'obtenir une valuation de la formule Fnc décrite comme une liste de liste d'entiers relatifs, comme le montre la capture d'écran ci-dessous :
+
+\begin{center}
+\includegraphics[width = 400pt]{SolutionDpll.png}
+\end{center}
+
+Par ailleurs, un prédicat \texttt{temp(+Fnc)} permet d'évaluer le temps d'exécution de la résolution. La figure ci-dessous montre la résolution d'une formule sous forme normale conjonctive issue d'un picross.
+
+\begin{center}
+\includegraphics[width = 400pt]{TempDpll.png}
+\end{center}
+
+\subsection{Méthode des Tableaux}
+Il s'agit d'implémenter un prédicat qui étant donnée une formule $\phi$ indique si $\phi$ est prouvable par la méthode des tableaux (i.e s'il existe un tableau à partir de la négation de $\phi$ dont toutes les branches sont closes). Les tableaux sont manipulés comme des arbres.
 \end{document}
