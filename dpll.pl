@@ -2,7 +2,7 @@
 
 Problème de satisfiabilité de contraintes modélisé avec l'algorithme DPLL qui prend en entrée une formule mise sous forme normale conjonctive. Cette formule sera manipulée comme une liste de clauses elles mêmes manipulés comme des listes.
 
-Les variables sont manipulées à l'aide d'entiers, positifs s'il s'agit de variables et négatifs pour les négations de variables.
+Les variables propositionnelles sont manipuléees avec des entiers naturels. On obtient alors simplement les littéraux correspondant en considérant des entiers relatifs (négatifs pour la négation d'une variable).
 
 Exemple de Fnc pour tester :
 [[1,2,-3,-4],[-5],[-1,-2,3,5],[1,3,-4],[2],[6,5],[2,-4,6]]
@@ -92,11 +92,40 @@ get_polarisation_negative(Fnc, Variables) :-
 
 % dpll(Fnc, Sol) : Sol est une affectation des variables qui rend satisfiable la formule FNC
 dpll([],[]).
-dpll(Fnc,Sol) :- get_unitaire(Fnc, [], Var), remove_litt(Fnc, Var, Fnc2), dpll(Fnc2,Sol2), union(Var, Sol2, Sol), !.
-dpll(Fnc,Sol) :- get_polarisation_positive(Fnc, Var), remove_litt(Fnc, Var, Fnc2), dpll(Fnc2,Sol2), union(Var, Sol2, Sol), !.
-dpll(Fnc,Sol) :- get_polarisation_negative(Fnc, Var), remove_litt(Fnc, Var, Fnc2), dpll(Fnc2,Sol2), union(Var, Sol2, Sol), !.
-dpll(Fnc,Sol) :- get_litteraux(Fnc, Litt), get_variables(Litt, Var), head(P, _, Var), head(P,Sol2,Sol), remove_litt(Fnc,[P],Fnc2), dpll(Fnc2,Sol2).
-dpll(Fnc,Sol) :- get_litteraux(Fnc, Litt), get_variables(Litt, Var), head(P, _, Var), L is -P, head(L,Sol2,Sol), remove_litt(Fnc,[L],Fnc2), dpll(Fnc2,Sol2).
+% Cas des clauses unitaires
+dpll(Fnc,Sol) :-
+	get_unitaire(Fnc, [], Var),
+	remove_litt(Fnc, Var, Fnc2), 
+	dpll(Fnc2,Sol2), 
+	union(Var, Sol2, Sol), !.
+% Cas des polarisations positives
+dpll(Fnc,Sol) :- 
+	get_polarisation_positive(Fnc, Var),
+	remove_litt(Fnc, Var, Fnc2),
+	dpll(Fnc2,Sol2),
+	union(Var, Sol2, Sol), !.
+% Cas des polarisations négatives
+dpll(Fnc,Sol) :-
+	get_polarisation_negative(Fnc, Var),
+	remove_litt(Fnc, Var, Fnc2),
+	dpll(Fnc2,Sol2),
+	union(Var, Sol2, Sol), !.
+% Cas de tentative de valuation à vrai
+dpll(Fnc,Sol) :-
+	get_litteraux(Fnc, Litt),
+	get_variables(Litt, Var),
+	head(P, _, Var),
+	head(P,Sol2,Sol),
+	remove_litt(Fnc,[P],Fnc2),
+	dpll(Fnc2,Sol2).
+% Cas de tentative de valuation à faux
+dpll(Fnc,Sol) :-
+	get_litteraux(Fnc, Litt),
+	get_variables(Litt, Var),
+	head(P, _, Var), L is -P,
+	head(L,Sol2,Sol),
+	remove_litt(Fnc,[L],Fnc2),
+	dpll(Fnc2,Sol2).
 
 % ecriture_solution(+L) : affiche à l'écran la solution avec une mis en forme minimale.
 ecriture_solution([]).

@@ -61,6 +61,28 @@ Notons que le grand nombre de cas à tester peut causer un certain délais avant
 
 
 \section{Problème 3 : Logique propositionnelle}
+\subsection{Méthode des Tableaux}
+Il s'agit d'implémenter un prédicat qui étant donnée une formule $\phi$ indique si $\phi$ est prouvable par la méthode des tableaux (i.e s'il existe un tableau à partir de la négation de $\phi$ dont toutes les branches sont closes).
+
+Les formules sont ici manipulées à l'aide d'arbres construits en s'appuyant sur les connecteurs logiques : la négation est d'arité $1$ donc induit une branche tandis que la conjonction, la disjonction et l'implication dont d'arité $2$ donc induisent deux branches. Les variables sont manipulées sous la forme d'entiers naturels. On construits alors simplement les littéraux avec les entiers relatifs : un entier négatif correspond à la négation d'une variable.
+
+Les tableaux sont aussi manipulés comme des arbres, les nœuds sont alors $\alpha$ ou $\beta$ suivant le type de branches. Les formules ne sont présentes que sur les feuilles, et sous la forme de listes. Ainsi si la feuille d'une branche est $[1,2,et(1,3)]$ cela signifie que l'on considère l'ensemble de formules ${1,2,1\wedge3}$.
+
+On trouve donc un certain nombres de prédicats pour manipuler les listes (concaténation, recherche d'un élément, ajout en te de liste, etc.).
+
+Ensuite le prédicat \texttt{formule(+F)} permet de construire les formules à l'aide des différents connecteurs logiques.
+
+Enfin, on trouve les prédicats sur les tableaux (pour savoir si un tableau est développé, clos, etc.)
+
+La construction d'un tableau à partir d'un ensemble de formules est réalisée de la manière suivante : on prend un liste de formule, on cherche une formule à développer, on la développe et on remplace la formule non développée par ses sous-formules. Ce processus est itéré tant qu'il existe une formule non développée puis on reconstruit le tableau complet. 
+Pour vérifier si une formule  $\phi$ est prouvable par tableau, il suffit donc de construire le tableau associé à la $\neg \phi$ et à vérifier qu'il est clos.
+
+Le code se trouve dans le fichier "tableaux.pl". On trouvera en en-tête quatre formules issues de l'exercice $1$ du TD $3$ pouvant être utilisés pour tester le code. La commande \texttt{solution(+F)} affiche à l'écran si la formule F est prouvable par tableaux. La commande \texttt{solution\_avec\_tableau} affiche aussi le tableau développé afin de pouvoir simplement contrôler le résultat. On peut voir un exemple d'exécution sur la capture d'écran suivante : 
+
+\begin{center}
+\includegraphics[width = 400pt]{SolutionTableaux.png}
+\end{center}
+
 \subsection{Algorithme DPLL}
 Il s'agit d'implémenter un prédicat qui teste la satisfiabilité d'une formule booléenne $\phi$ en appliquant l'algorithme DPLL. On suppose ici que la formule est déjà mise sous forme normale conjonctive. La formule est alors un ensemble de clause et chaque clause est une disjonction de littéraux.  Une clause est alors implémentée sous la forme d'une liste de littéraux et une formule sous la forme d'une liste de liste. Ici on oblige les variables à être représentées avec des entiers naturels. Les littéraux sont alors simplement représentés avec les entiers relatifs : un entier positif représente un variable et un entier négatif la négation de cette variable.
 
@@ -97,6 +119,4 @@ Par ailleurs, un prédicat \texttt{temp(+Fnc)} permet d'évaluer le temps d'exé
 \includegraphics[width = 400pt]{TempDpll.png}
 \end{center}
 
-\subsection{Méthode des Tableaux}
-Il s'agit d'implémenter un prédicat qui étant donnée une formule $\phi$ indique si $\phi$ est prouvable par la méthode des tableaux (i.e s'il existe un tableau à partir de la négation de $\phi$ dont toutes les branches sont closes). Les tableaux sont manipulés comme des arbres.
 \end{document}
