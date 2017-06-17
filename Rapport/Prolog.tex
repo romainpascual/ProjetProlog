@@ -17,7 +17,7 @@
 \maketitle
 
 \section{Problème 1 : Traversées de rivière}
-Les problèmes des traversée de rivière supposent généralement que l'on doit faire passer des individus d'un côté à l'autre de la rivière en ayant un nombre limité de personnage sur le bateau tout en interdisant à certains personnages de rester ensemble d'un même côté de la rivière.
+Les problèmes des traversées de rivière supposent généralement que l'on doit faire passer des individus d'un côté à l'autre de la rivière en ayant un nombre limité de personnages sur le bateau tout en interdisant à certains personnages de rester ensemble d'un même côté de la rivière.
 
 Ici le problème est le suivant : "Lulu doit faire passer le chou, la chèvre et le loup de l'autre côté de la rivière et il n'a qu'une place sur son bateau. Si la chèvre et le chou sont ensemble sur une rive quand Lulu s'éloigne, la chèvre mange le chou. Et si le loup et la chèvre sont ensemble quand Lulu s'éloigne, le loup mange la chèvre."
 
@@ -47,12 +47,12 @@ Par exemple, avec le tirage $1,2,3,4,5,6$ et l'objectif $N = 150$, une combinais
 
 Entre deux combinaisons gagnantes, celle qui utilise le moins de nombres sera préférée.
 
-L'implémentation nécessite en premier lieu un certain nombre de prédicats pour pouvoir manipuler les listes (sélection d'un élément, calcul de la longueur, etc.). Le compte est bon est modélisé comme une liste d'opération arithmétiques, on extrait deux nombres, sur lesquels on applique une opération arithmétique ($+$, $-$, $*$ ou *$/$). Le résultat est alors rajouté à la liste des nombres. On obtient ainsi tous les résultats possibles à partir de l'ensemble de départ. Il suffit alors de s'arrêter lorsque l'on a construit l'objectif recherché. Pour obtenir la "meilleure" solution, c'est-à-dire celle utilisant le moins d'opération possibles, on se contente d'énumérer toutes les solutions et d'en choisir une parmi celles ayant le moins d'opérations. Par ailleurs, un certains nombres de prédicats sont utilisés pour vérifier que les contraintes sur les nombres utilisés et sur l'objectif sont remplis. Enfin, on trouvera des prédicats permettant une mise en forme minimale des solutions.
+L'implémentation nécessite en premier lieu un certain nombre de prédicats pour pouvoir manipuler les listes (sélection d'un élément, calcul de la longueur, etc.). Le compte est bon est modélisé comme une liste d'opérations arithmétiques, on extrait deux nombres, sur lesquels on applique une opération arithmétique ($+$, $-$, $*$ ou *$/$). Le résultat est alors rajouté à la liste des nombres. On obtient ainsi tous les résultats possibles à partir de l'ensemble de départ. Il suffit alors de s'arrêter lorsque l'on a construit l'objectif recherché. Pour obtenir la "meilleure" solution, c'est-à-dire celle utilisant le moins d'opération possibles, on se contente d'énumérer toutes les solutions et d'en choisir une parmi celles ayant le moins d'opérations. Par ailleurs, un certain nombres de prédicats sont utilisés pour vérifier que les contraintes sur les nombres utilisés et sur l'objectif sont remplies. Enfin, on trouvera des prédicats permettant une mise en forme minimale des solutions.
 Dans le cas d'une solution approchée, celle si est construite en testant tous les objectifs, en s'éloignant progressivement dans les deux directions.
 
 Le code se trouve dans le fichier "compteEstBon.pl". Pour l'exécuter, il suffit d'appeler la commande \texttt{solution($+$Liste, $+$Nombre)} avec pour paramètres les nombres que l'on peut utiliser et l'objectif à atteindre pour obtenir l'ensemble des solutions possibles. On utilisera la commande \texttt{meilleure\_solution($+$Liste, $+$Nombre)} pour afficher une meilleure solution (en nombre d'opérations). Enfin la commande \texttt{meilleure\_solution\_approchee($+$Nombres, $+$But, $+$Erreur\_toleree)} permet de chercher la meilleure solution approchée restant entre $100$ et $1000$ (exclus) avec pour borne supérieure de l'erreur la valeur de \texttt{Erreur\_toleree}.
 
-Notons que le grand nombre de cas à tester peut causer un certain délais avant d'obtenir le résultat, comme on peut le voir sur les captures d'écran ci-dessous où la valeur $C$ représente le temps d'exécution du code en secondes. 
+Notons que le grand nombre de cas à tester peut causer un certain délai avant d'obtenir le résultat, comme on peut le voir sur les captures d'écran ci-dessous où la valeur $C$ représente le temps d'exécution du code en secondes. 
 
 \begin{center}
 \includegraphics[width = 400pt]{SolutionCompteEstBon1.png}
@@ -68,7 +68,7 @@ Les formules sont ici manipulées à l'aide d'arbres construits en s'appuyant su
 
 Les tableaux sont aussi manipulés comme des arbres, les nœuds sont alors $\alpha$ ou $\beta$ suivant le type de branches. Les formules ne sont présentes que sur les feuilles, et sous la forme de listes. Ainsi si la feuille d'une branche est $[1,2,et(1,3)]$ cela signifie que l'on considère l'ensemble de formules ${1,2,1\wedge3}$.
 
-On trouve donc un certain nombres de prédicats pour manipuler les listes (concaténation, recherche d'un élément, ajout en te de liste, etc.).
+On trouve donc un certain nombre de prédicats pour manipuler les listes (concaténation, recherche d'un élément, ajout en tête de liste, etc.).
 
 Ensuite le prédicat \texttt{formule(+F)} permet de construire les formules à l'aide des différents connecteurs logiques.
 
@@ -84,9 +84,9 @@ Le code se trouve dans le fichier "tableaux.pl". On trouvera en en-tête quatre 
 \end{center}
 
 \subsection{Algorithme DPLL}
-Il s'agit d'implémenter un prédicat qui teste la satisfiabilité d'une formule booléenne $\phi$ en appliquant l'algorithme DPLL. On suppose ici que la formule est déjà mise sous forme normale conjonctive. La formule est alors un ensemble de clause et chaque clause est une disjonction de littéraux.  Une clause est alors implémentée sous la forme d'une liste de littéraux et une formule sous la forme d'une liste de liste. Ici on oblige les variables à être représentées avec des entiers naturels. Les littéraux sont alors simplement représentés avec les entiers relatifs : un entier positif représente un variable et un entier négatif la négation de cette variable.
+Il s'agit d'implémenter un prédicat qui teste la satisfiabilité d'une formule booléenne $\phi$ en appliquant l'algorithme DPLL. On suppose ici que la formule est déjà mise sous forme normale conjonctive. La formule est alors un ensemble de clause et chaque clause est une disjonction de littéraux.  Une clause est alors implémentée sous la forme d'une liste de littéraux et une formule sous la forme d'une liste de listes. Ici on oblige les variables à être représentées avec des entiers naturels. Les littéraux sont alors simplement représentés avec les entiers relatifs : un entier positif représente un variable et un entier négatif la négation de cette variable.
 
-Après avoir défini un certain nombres de prédicats pour manipuler les listes, on implémente des prédicats pour manipuler les littéraux, les clauses et les formules (trouver les littéraux dans une formule, supprimer des littéraux dans une clause ou dans une formule, obtenir la liste des variables d'une formule, etc).
+Après avoir défini un certain nombre de prédicats pour manipuler les listes, on implémente des prédicats pour manipuler les littéraux, les clauses et les formules (trouver les littéraux dans une formule, supprimer des littéraux dans une clause ou dans une formule, obtenir la liste des variables d'une formule, etc).
 
 Il s'agit alors de définir les prédicats propres à la résolution avec l'algorithme DPLL :
 \begin{itemize}
@@ -97,11 +97,11 @@ Il s'agit alors de définir les prédicats propres à la résolution avec l'algo
 
 \paragraph{Algorithme} L'algorithme est implémenté de la manière suivante :
 \begin{itemize}
-\item on cherche les littéraux dans des clauses unitaires, on les modifie les différentes clauses de la formule en fonction de si la valuation des littéraux mis en évidence les valide ou non, puis on résout par DPLL la nouvelle formule ;
-\item on cherche les littéraux de valuation uniquement positive, on les modifie les différentes clauses de la formule en fonction de si la valuation des littéraux mis en évidence les valide ou non, puis on résout par DPLL la nouvelle formule ;
-\item on cherche les littéraux de valuation uniquement négative, on les modifie les différentes clauses de la formule en fonction de si la valuation des littéraux mis en évidence les valide ou non, puis on résout par DPLL la nouvelle formule ;
-\item sinon on prend la variable en tête de liste et on essaie de lui affecter la valeur $true$, on les modifie les différentes clauses de la formule en fonction de si cette valuation les valide ou non, puis on résout par DPLL la nouvelle formule ;
-\item lors du backtracking, on prend la variable en tête de liste et on essaie de lui affecter la valeur $false$, on les modifie les différentes clauses de la formule en fonction de si cette valuation les valide ou non, puis on résout par DPLL la nouvelle formule ;
+\item on cherche les littéraux dans des clauses unitaires, on modifie les différentes clauses de la formule en fonction de si la valuation des littéraux mis en évidence les valide ou non, puis on résout par DPLL la nouvelle formule ;
+\item on cherche les littéraux de valuation uniquement positive, on modifie les différentes clauses de la formule en fonction de si la valuation des littéraux mis en évidence les valide ou non, puis on résout par DPLL la nouvelle formule ;
+\item on cherche les littéraux de valuation uniquement négative, on modifie les différentes clauses de la formule en fonction de si la valuation des littéraux mis en évidence les valide ou non, puis on résout par DPLL la nouvelle formule ;
+\item sinon on prend la variable en tête de liste et on essaie de lui affecter la valeur $true$, on modifie les différentes clauses de la formule en fonction de si cette valuation les valide ou non, puis on résout par DPLL la nouvelle formule ;
+\item lors du backtracking, on prend la variable en tête de liste et on essaie de lui affecter la valeur $false$, on modifie les différentes clauses de la formule en fonction de si cette valuation les valide ou non, puis on résout par DPLL la nouvelle formule ;
 \end{itemize}
 
 Dans un soucis de simplification, on évalue toutes les variables non significatives (c'est-à-dire les variables auxquelles on peut associer $true$ ou $false$ dans modifier la satisfiabilité de la formule) à $true$.

@@ -2,11 +2,11 @@
 
 Problème de prouvabilité par méthode des tableaux : on chercher à savoir si une formule phi représentée comme un arbre est prouvable par la méthode des tableaux, c'est-à-dire s'il existe un tableau clos à partir de la négation de phi).
 
-On définit donc dans un premier temps des prédicats sur les formules manipulées comme des arbres puis on des prédicats sur les tableaux.
+On définit donc dans un premier temps des prédicats sur les formules manipulées comme des arbres puis on décrit les prédicats sur les tableaux.
 
-Les variables propositionnelles sont manipuléees avec des entiers naturels. On obtient alors simplement les littéraux correspondant en considérant des entiers relatifs (négatifs pour la négation d'une variable).
+Les variables propositionnelles sont manipulées avec des entiers naturels. On obtient alors simplement les littéraux correspondant en considérant des entiers relatifs (négatifs pour la négation d'une variable).
 
-Cela peut induire des ambiguité pour décrire un littéral, ainsi la négation de 1 peut s'écrire :
+Cela peut induire des ambiguités pour décrire un littéral, ainsi la négation de 1 peut s'écrire :
 	-1, il s'agit alors d'un littéral ;
 	non(1), il s'agit alors d'une formule.
 
@@ -30,7 +30,7 @@ concatener([],L,L) :- !.
 concatener([H1|T1],L2,[H1|L]) :- concatener(T1,L2,L).
 
 % head (?A, ?L, ?L2) : L2 est la liste ayant pour tête A et pour queue L 
-% Utilisé pour ajouter un élémént en tête de liste.
+% Utilisé pour ajouter un élément en tête de liste.
 head(A,L,[A|L]).imp(ou(1,et(2,3)),et(ou(1,2),ou(1,3)))
 
 % element(?A, ?L, ?L2) : L est la liste L2 à laquelle on a enlevé A
@@ -83,10 +83,10 @@ formule2noeud(ou(A,B), beta([A],[B])) :- !. % Le connecteur principal est la dis
 formule2noeud(non(et(A,B)), beta([non(A)], [non(B)])) :- !. % Le connecteur principal est la négation, suivi d'une conjonction -> beta
 formule2noeud(imp(A,B), beta([non(A)], [B])) :- !. % Le connecteur principal est l'implication -> beta
 
-% trouve_non_developpe(+Liste, ? Formule) : Formule est une formule non développée présente dans la fiste de formules Liste.
+% trouve_non_developpe(+Liste, ? Formule) : Formule est une formule non développée présente dans la liste de formules Liste.
 trouve_non_developpe([],_) :- !, fail. % Toutes les formules de la liste vide sont développées.
-trouve_non_developpe([A|_], A) :- not(litt(A)),!. % A n'est pas un littéral, la formule est donc non développpée.
-trouve_non_developpe([_|L], B) :- trouve_non_developpe(L,B). % La formule est tête de liste est un littéral (coupure), c'est donc une formule développée
+trouve_non_developpe([A|_], A) :- not(litt(A)),!. % A n'est pas un littéral, la formule est donc non développée.
+trouve_non_developpe([_|L], B) :- trouve_non_developpe(L,B). % La formule en tête de liste est un littéral (coupure), c'est donc une formule développée
 
 % liste_formule2tableau(+Liste, ?Tab) : Tableau est un tableau développé construit à partir des formules de Liste.
 % Cas où la liste représente un noeud développé.

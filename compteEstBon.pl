@@ -4,12 +4,12 @@ Le compte est bon est un jeu qui consiste à trouver une combinaison arithmétiq
 
 On peut ensuite chercher la meilleure solution en cherchant, dans l'ensemble des solutions une contenant le moins d'opérations.
 
-Enfin on peut chercher une solution approchée par défaut ou par excès s'il est impossible de trouver un compte exacte.
+Enfin on peut chercher une solution approchée par défaut ou par excès s'il est impossible de trouver un compte exact.
 */
 
 /* Manipulation des listes*/
 % head (?A, ?L, ?L2) : L2 est la liste ayant pour tête A et pour queue L 
-% Utilisé pour ajouter un élémént en tête de liste.
+% Utilisé pour ajouter un élément en tête de liste.
 head(A,L,[A|L]).
 
 % element(?A, ?L, ?L2) : L est la liste L2 à laquelle on a enlevé A
@@ -58,7 +58,7 @@ test_choisis([A|L]) :-
 	test_choisis(L).
 
 
-% test_liste(+L) : vérifie que la loste L contient 6 nombres et qu'ils sont corrects.
+% test_liste(+L) : vérifie que la liste L contient 6 nombres et qu'ils sont corrects.
 test_liste(L) :- test_choisis(L), longueur(L,N), N is 6.
 
 /* Vérification du but : compris entre 100 et 1000 */
@@ -88,7 +88,7 @@ solution(Nombres,But):-
 	write('Le compte est bon.'), nl,
 	write_calcul(Calcul), nl.
 	
-% get_solution(+Nombre, +But, ?Calcul) : les opérations décrites dans Calcul permettent de trouver la meilleure solution pour obtenir But à partir des nombress de la liste Nombre
+% get_solution(+Nombre, +But, ?Calcul) : les opérations décrites dans Calcul permettent de trouver la meilleure solution pour obtenir But à partir des nombres de la liste Nombre
 get_meilleure_solution(Nombres, But, Calcul) :-
 	test_but(But),
 	test_liste(Nombres),

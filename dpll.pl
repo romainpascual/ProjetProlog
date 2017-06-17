@@ -1,8 +1,8 @@
 /* Auteur : Valentin Noel et Romain Pascual
 
-Problème de satisfiabilité de contraintes modélisé avec l'algorithme DPLL qui prend en entrée une formule mise sous forme normale conjonctive. Cette formule sera manipulée comme une liste de clauses elles mêmes manipulés comme des listes.
+Problème de satisfiabilité de contraintes modélisées avec l'algorithme DPLL qui prend en entrée une formule mise sous forme normale conjonctive. Cette formule sera manipulée comme une liste de clauses elles mêmes manipulées comme des listes.
 
-Les variables propositionnelles sont manipuléees avec des entiers naturels. On obtient alors simplement les littéraux correspondant en considérant des entiers relatifs (négatifs pour la négation d'une variable).
+Les variables propositionnelles sont manipulées avec des entiers naturels. On obtient alors simplement les littéraux correspondant en considérant des entiers relatifs (négatifs pour la négation d'une variable).
 
 Exemple de Fnc pour tester :
 [[1,2,-3,-4],[-5],[-1,-2,3,5],[1,3,-4],[2],[6,5],[2,-4,6]]
@@ -14,7 +14,7 @@ Exemple de Fnc pour tester :
 is_empty([]).
 
 % head (?A, ?L, ?L2) : L2 est la liste ayant pour tête A et pour queue L 
-% Utilisé pour ajouter un élémént en tête de liste.
+% Utilisé pour ajouter un élément en tête de liste.
 head(A,L,[A|L]).
 
 % element(?A, ?L, ?L2) : L est la liste L2 à laquelle on a enlevé A
@@ -27,7 +27,7 @@ unique_occurrence([],[]).
 unique_occurrence([X|L], L2) :- element(X,L,_), unique_occurrence(L,L2),!.
 unique_occurrence([X|L], [X|L2]) :- unique_occurrence(L,L2).
 
-% unique_par_clause(+LL, ? LL2) : LL2 est la liste des listes de LL privées de leur doublons
+% unique_par_clause(+LL, ? LL2) : LL2 est la liste des listes de LL privées de leurs doublons
 unique_par_clause([],[]).
 unique_par_clause([A|L],[B|L2]) :- unique_occurrence(A,B), unique_par_clause(L,L2).
 
@@ -72,7 +72,7 @@ enleve_non_positifs([A|L], [A|L2]) :- integer(A), A >= 0, B is -A, not(element(B
 enleve_non_positifs([A|L], L2) :- integer(A), A < 0, B is -A, element(B,L,L_sans_B), enleve_non_positifs(L_sans_B,L2),!.
 enleve_non_positifs([_|L], L2) :- enleve_non_positifs(L,L2).
 
-% get_polarisation_positive(+Fnc, ? Varibles) : Variables est la liste des variables présentes uniquement comme des littéraux positifs dans la Fnc.
+% get_polarisation_positive(+Fnc, ? Variables) : Variables est la liste des variables présentes uniquement comme des littéraux positifs dans la Fnc.
 get_polarisation_positive(Fnc, Variables) :-
 	get_litteraux(Fnc, Litt),
 	enleve_non_positifs(Litt, Variables),
@@ -84,7 +84,7 @@ enleve_non_negatifs([A|L], [A|L2]) :- integer(A), A =< 0, B is -A, not(element(B
 enleve_non_negatifs([A|L], L2) :- integer(A), A > 0, B is -A, element(B,L,L_sans_B), enleve_non_negatifs(L_sans_B,L2),!.
 enleve_non_negatifs([_|L], L2) :- enleve_non_negatifs(L,L2).
 
-% get_polarisation_negative(+Fnc, ? Varibles) : Variables est la liste des variables présentes uniquement comme des littéraux négatifs dans la Fnc.
+% get_polarisation_negative(+Fnc, ? Variables) : Variables est la liste des variables présentes uniquement comme des littéraux négatifs dans la Fnc.
 get_polarisation_negative(Fnc, Variables) :-
 	get_litteraux(Fnc, Litt),
 	enleve_non_negatifs(Litt, Variables),
@@ -127,12 +127,12 @@ dpll(Fnc,Sol) :-
 	remove_litt(Fnc,[L],Fnc2),
 	dpll(Fnc2,Sol2).
 
-% ecriture_solution(+L) : affiche à l'écran la solution avec une mis en forme minimale.
+% ecriture_solution(+L) : affiche à l'écran la solution avec une mise en forme minimale.
 ecriture_solution([]).
 ecriture_solution([A|L]) :- A =< 0, B is -A, write("La variable "), write(B), write(" est évaluée à False"), nl, ecriture_solution(L), !.
 ecriture_solution([A|L]) :- A > 0, write("La variable "), write(A), write(" est évaluée à True"), nl,  ecriture_solution(L), !.
 
-% solution(+Fnc) : Recherche une affectation de varibles de Fnc qui rende la formule satisfiable.
+% solution(+Fnc) : Recherche une affectation de variables de Fnc qui rende la formule satisfiable.
 solution(Fnc):-
 	unique_par_clause(Fnc, Fnc_unique),
 	get_litteraux(Fnc_unique, Litt),

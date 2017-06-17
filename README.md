@@ -13,8 +13,8 @@ montre la sortie ci-dessous
 	--> meilleure_solution_approchee(+Nombres, +But, +Erreur_toleree) : on obtient la meilleure solution avec au plus un écart de Erreur_toloree avec le But recherché.
 
 - le ficher "tableaux.pl" contient la solution au problème de la prouvabilité par la méthode des tableaux. Après avoir chargé le fichier, on peut lire la solution avec les commandes :
-	--> "solution(+F)" : on obtient un message indiquant si la formule des prouvable par la méthode des tableaux.
-	--> "solution_avec_tableau(+F)" : on obtient un message indiquant si la formule des prouvable par la méthode des tableaux et, le cas échéant, le tableau correspondant.
+	--> "solution(+F)" : on obtient un message indiquant si la formule est prouvable par la méthode des tableaux.
+	--> "solution_avec_tableau(+F)" : on obtient un message indiquant si la formule est prouvable par la méthode des tableaux et, le cas échéant, le tableau correspondant.
 
-- le fichier "dpll.pl" contient la solution au problème de la satisfiabilité d'une formule mise sous forme normale conjonctice à l'aide de l'algorithme DPLL. Après avoir chargé le fichier, on peut lire la solution avec la commande :
+- le fichier "dpll.pl" contient la solution au problème de la satisfiabilité d'une formule mise sous forme normale conjonctive à l'aide de l'algorithme DPLL. Après avoir chargé le fichier, on peut lire la solution avec la commande :
 	--> "solution(+Fnc)" : on obtient une valuation des variables de la formule qui permette sa satisfiabilité, si celle-ci est possible.
