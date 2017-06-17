@@ -3,8 +3,7 @@ Projet ProLog pour le cours de Logique ECP
 
 Le projet est constitué d'un fichier par implémentation :
 - le fichier "riviere.pl" contient la solution au problème de traversée de la rivière. Après avoir chargé le fichier, on peut lire la solution avec les commandes sans paramètre :
-	--> "solution" : on obtient la liste des situations depuis celle où tout le monde est sur la première berge jusqu’à celle ou tout le monde est sur la seconde berge ;
-montre la sortie ci-dessous
+	--> "solution" : on obtient la liste des situations depuis celle où tout le monde est sur la première berge jusqu’à celle où tout le monde est sur la seconde berge ;
 	--> "solution_ecrite" : on obtient la liste écrite des déplacements de Lulu .
 
 - le fichier "compteEstBon.pl" contient la solution au problème du compte est bon. Après avoir chargé le fichier, on peut lire la solution avec les commandes :
